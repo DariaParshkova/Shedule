@@ -1,5 +1,5 @@
 //
-//  TasksViewController.swift
+//  SheduleViewController.swift
 //  Shedule
 //
 //  Created by Parshkova Daria on 07.07.2023.
@@ -8,7 +8,7 @@
 import UIKit
 import FSCalendar
 
-class TasksViewController : UIViewController {
+class SheduleViewController : UIViewController {
     var calendarHeightConstraint : NSLayoutConstraint!
     
     private var calendar : FSCalendar = {
@@ -25,6 +25,13 @@ class TasksViewController : UIViewController {
         
         return button
     }()
+    let tableView : UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    let idSheduleCell = "idSheduleCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +43,10 @@ class TasksViewController : UIViewController {
         setConstraints()
         showHideButton.addTarget(self, action: #selector(showHideButtonTapped), for: .touchUpInside)
         swipeAction()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SheduleTableViewCell.self, forCellReuseIdentifier: idSheduleCell) //регистрируем ячейек
     }
     @objc func showHideButtonTapped() {
         if calendar.scope == .week {
@@ -47,8 +58,29 @@ class TasksViewController : UIViewController {
         }
     }
 }
+//MARK: UITableViewDelegate, UITableViewDataSource
+
+extension SheduleViewController : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: idSheduleCell, for: indexPath) as! SheduleTableViewCell
+        switch indexPath.row {
+        case 0 : cell.backgroundColor = .lightGray
+        case 1 : cell.backgroundColor = .purple
+        default : cell.backgroundColor = .cyan
+        }
+        return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        80
+    }
+    
+}
+
 //MARK: FSCalendarDataSource , FSCalendarDelegate
-extension TasksViewController : FSCalendarDataSource, FSCalendarDelegate {
+extension SheduleViewController : FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendarHeightConstraint.constant = bounds.height
         view.layoutIfNeeded() //для плавной анимации
@@ -78,7 +110,7 @@ extension TasksViewController : FSCalendarDataSource, FSCalendarDelegate {
 }
 
 //MARK: SetConstraints
-extension TasksViewController {
+extension SheduleViewController {
     func setConstraints() {
         view.addSubview(calendar)
         //для открытия календаря при раскрытии его проностью
@@ -96,5 +128,13 @@ extension TasksViewController {
             showHideButton.widthAnchor.constraint(equalToConstant: 120),
             showHideButton.heightAnchor.constraint(equalToConstant: 20)
         ])
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: showHideButton.bottomAnchor, constant: 10),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: 0 )
+        ])
     }
 }
+
