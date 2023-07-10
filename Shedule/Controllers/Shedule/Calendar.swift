@@ -49,6 +49,11 @@ class SheduleViewController : UIViewController {
         tableView.dataSource = self
         tableView.register(SheduleTableViewCell.self, forCellReuseIdentifier: idSheduleCell) //регистрируем ячейек
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+    }
+    @objc func addButtonTapped() {
+        let scheduleOption = OptionsSheduleTableViewController()
+        navigationController?.pushViewController(scheduleOption, animated: true)
     }
     @objc func showHideButtonTapped() {
         if calendar.scope == .week {
