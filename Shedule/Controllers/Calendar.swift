@@ -27,6 +27,7 @@ class SheduleViewController : UIViewController {
     }()
     let tableView : UITableView = {
         let tableView = UITableView()
+        tableView.bounces = false // не будет прокрутки при маленьком колич строк
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -47,6 +48,7 @@ class SheduleViewController : UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SheduleTableViewCell.self, forCellReuseIdentifier: idSheduleCell) //регистрируем ячейек
+        
     }
     @objc func showHideButtonTapped() {
         if calendar.scope == .week {
@@ -62,20 +64,16 @@ class SheduleViewController : UIViewController {
 
 extension SheduleViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 5
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idSheduleCell, for: indexPath) as! SheduleTableViewCell
-        switch indexPath.row {
-        case 0 : cell.backgroundColor = .lightGray
-        case 1 : cell.backgroundColor = .purple
-        default : cell.backgroundColor = .cyan
-        }
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
+    
     
 }
 

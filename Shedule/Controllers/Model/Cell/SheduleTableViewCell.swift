@@ -23,6 +23,7 @@ class SheduleTableViewCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setConstraints()
+        self.selectionStyle = .none //при нажатии на ячейку не будет выделения
         
     }
     
