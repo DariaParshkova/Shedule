@@ -22,11 +22,44 @@ class OptionsSheduleTableViewCell : UITableViewCell {
         return label
     }()
     
+    let repeatSwitch : UISwitch = {
+        let repeatSwitch = UISwitch()
+        repeatSwitch.isOn = true
+        repeatSwitch.isHidden = true
+        repeatSwitch.onTintColor = R.Colors.greenSwitch
+        repeatSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return repeatSwitch
+    }()
+    
+    let cellNameArray = [["Date","Time"],
+                         ["Name","Type", "Building body", "Audience"],
+                         ["Teacher Name"],
+                         [""],
+                         ["Repeat every 7 days"],]
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setConstraints()
         self.selectionStyle = .none //при нажатии на ячейку не будет выделения
         self.backgroundColor = .clear
+        repeatSwitch.addTarget(self, action: #selector(switchChange(paramTarget:)), for: .valueChanged)
+    }
+    //настройки конкертных ячеек
+    func cellConfigure(indexPath:IndexPath) {
+        nameCellLabel.text = cellNameArray[indexPath.section][indexPath.row] //по каждой секции нашего массива cellNameArray разбиваем по ячейкам
+        if indexPath == [3,0] {
+            backgroundViewCell.backgroundColor = R.Colors.yellow
+        }
+        if indexPath == [4,0] {
+            repeatSwitch.isHidden = false
+        }
+    }
+    @objc func switchChange(paramTarget: UISwitch) {
+        if paramTarget.isOn {
+            print("ON")
+        } else {
+            print("Off")
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -42,8 +75,14 @@ class OptionsSheduleTableViewCell : UITableViewCell {
         ])
         self.addSubview(nameCellLabel)
         NSLayoutConstraint.activate([
-            nameCellLabel.topAnchor.constraint(equalTo: self.centerYAnchor),
-            nameCellLabel.leadingAnchor.constraint(equalTo: backgroundViewCell.leadingAnchor, constant: -15)
+            nameCellLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            nameCellLabel.leadingAnchor.constraint(equalTo: backgroundViewCell.leadingAnchor, constant: 15)
+        ])
+        
+        self.contentView.addSubview(repeatSwitch)
+        NSLayoutConstraint.activate([
+            repeatSwitch.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            repeatSwitch.trailingAnchor.constraint(equalTo: backgroundViewCell.trailingAnchor, constant: -20)
         ])
         
         

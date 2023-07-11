@@ -13,11 +13,11 @@ class SheduleTableViewCell : UITableViewCell {
     
     let teacherName = UILabel(text: "Паршкова Дарья Владимировна", font: R.Fonts.aveneirNextDemiBold(with: 20), alignment: .right)
     let lessonTime = UILabel(text: "08:00", font: R.Fonts.aveneirNextDemiBold(with: 20), alignment: .left)
-    let typeLabel = UILabel(text: "Тип:", font: R.Fonts.aveneirNext(with: 14), alignment: .right)
+    let typeLabel = UILabel(text: "Type:", font: R.Fonts.aveneirNext(with: 14), alignment: .right)
     let lessonType = UILabel(text: "лекция", font: R.Fonts.aveneirNextDemiBold(with: 14), alignment: .left)
-    let buildingLabel = UILabel(text: "корпус", font: R.Fonts.aveneirNext(with: 14), alignment: .right)
+    let buildingLabel = UILabel(text: "Building body:", font: R.Fonts.aveneirNext(with: 14), alignment: .right)
     let lessonBuilding = UILabel(text: "1", font: R.Fonts.aveneirNextDemiBold(with: 14), alignment: .left)
-    let audLabel = UILabel(text: "Аудитория:", font: R.Fonts.aveneirNext(with: 14), alignment: .right)
+    let audLabel = UILabel(text: "Audience:", font: R.Fonts.aveneirNext(with: 14), alignment: .right)
     let lessonAud = UILabel(text: "101", font: R.Fonts.aveneirNextDemiBold(with: 14), alignment: .left)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

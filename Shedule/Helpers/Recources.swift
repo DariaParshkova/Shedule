@@ -24,11 +24,15 @@ enum R {
     }
     enum Colors {
         static let pink = UIColor(hexString: "#FCE4EC")
-        static let indigo = UIColor(hexString: "#E8EAF6")
+        static let yellow = UIColor(hexString: "#FFFFD5")
         static let green = UIColor(hexString: "#E8F5E9")
         static let purple = UIColor(hexString: "#EDE7F6")
         static let orange = UIColor(hexString: "#FBE9E7")
+        static let greenSwitch = UIColor(hexString: "#66BB6A")
         
+    }
+    enum ColorsForBackground {
+        static let indigo = UIColor(hexString: "#E8EAF6")
     }
     
 }
