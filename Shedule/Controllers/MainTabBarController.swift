@@ -18,7 +18,7 @@ class MainTabBarController: UITabBarController {
         //эта функция вызывает все viewControllers
         let scheduleViewController = createNavController(vc: SheduleViewController(), itemName: "Shedule", itemImage: "calendar.badge.clock")
         let tasksViewController = createNavController(vc: TasksViewController(), itemName: "Tasks", itemImage: "text.badge.checkmark")
-        let contactsViewController = createNavController(vc: ContactsViewController(), itemName: "Contacts", itemImage: "rectangle.stack.person.crop")
+        let contactsViewController = createNavController(vc: ContactsTableViewController(), itemName: "Contacts", itemImage: "rectangle.stack.person.crop")
         viewControllers = [scheduleViewController, tasksViewController, contactsViewController]
     }
 
@@ -27,6 +27,7 @@ class MainTabBarController: UITabBarController {
         item.titlePositionAdjustment = .init(horizontal: 0, vertical: 10) //опускаем title у item
         let navController = UINavigationController(rootViewController: vc)
         navController.tabBarItem = item
+        navController.navigationBar.scrollEdgeAppearance = navController.navigationBar.standardAppearance //полоска навигации
         return navController
         
     }

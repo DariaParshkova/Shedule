@@ -5,14 +5,16 @@
 //  Created by Parshkova Daria on 10.07.2023.
 //
 import UIKit
-class OptionsSheduleTableViewCell : UITableViewCell {
+class OptionsTableViewCell : UITableViewCell {
     
-    let backgroundViewCell : UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 10
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    let backgroundViewCell : UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .white
+        imageView.layer.cornerRadius = 10
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = R.Colors.blueForEmail
+        return imageView
     }()
     
     let nameCellLabel : UILabel = {
@@ -30,13 +32,7 @@ class OptionsSheduleTableViewCell : UITableViewCell {
         repeatSwitch.translatesAutoresizingMaskIntoConstraints = false
         return repeatSwitch
     }()
-    
-    let cellNameArray = [["Date","Time"],
-                         ["Name","Type", "Building body", "Audience"],
-                         ["Teacher Name"],
-                         [""],
-                         ["Repeat every 7 days"],]
-    
+  
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setConstraints()
@@ -45,8 +41,8 @@ class OptionsSheduleTableViewCell : UITableViewCell {
         repeatSwitch.addTarget(self, action: #selector(switchChange(paramTarget:)), for: .valueChanged)
     }
     //настройки конкертных ячеек
-    func cellConfigure(indexPath:IndexPath) {
-        nameCellLabel.text = cellNameArray[indexPath.section][indexPath.row] //по каждой секции нашего массива cellNameArray разбиваем по ячейкам
+    func cellSheduleConfigure(nameArray:[[String]], indexPath: IndexPath) {
+        nameCellLabel.text = nameArray[indexPath.section][indexPath.row] //по каждой секции нашего массива cellNameArray разбиваем по ячейкам
         if indexPath == [3,0] {
             backgroundViewCell.backgroundColor = R.Colors.yellow
         }
@@ -54,6 +50,18 @@ class OptionsSheduleTableViewCell : UITableViewCell {
             repeatSwitch.isHidden = false
         }
     }
+    func cellTasksConfigure(nameArray:[String], indexPath: IndexPath) {
+        nameCellLabel.text = nameArray[indexPath.section]
+        if indexPath == [3,0] {
+            backgroundViewCell.backgroundColor = R.Colors.yellow
+        }
+    }
+    func cellContactConfigure(nameArray:[String], indexPath: IndexPath) {
+        nameCellLabel.text = nameArray[indexPath.section]
+        indexPath.section == 4 ? backgroundViewCell.image = UIImage(systemName: "person.badge.plus")?.withRenderingMode(.alwaysTemplate) : nil
+    }
+    
+    
     @objc func switchChange(paramTarget: UISwitch) {
         if paramTarget.isOn {
             print("ON")
@@ -84,6 +92,15 @@ class OptionsSheduleTableViewCell : UITableViewCell {
             repeatSwitch.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             repeatSwitch.trailingAnchor.constraint(equalTo: backgroundViewCell.trailingAnchor, constant: -20)
         ])
+        /*
+        self.contentView.addSubview(addImageContact)
+        NSLayoutConstraint.activate([
+            addImageContact.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+            addImageContact.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            addImageContact.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+            addImageContact.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
+        ])*/
+        
         
         
     }

@@ -50,6 +50,7 @@ class SheduleViewController : UIViewController {
         tableView.register(SheduleTableViewCell.self, forCellReuseIdentifier: idSheduleCell) //регистрируем ячейек
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationController?.tabBarController?.tabBar.scrollEdgeAppearance = navigationController?.tabBarController?.tabBar.standardAppearance //таббар для 13 версии xcode
     }
     @objc func addButtonTapped() {
         let scheduleOption = OptionsSheduleTableViewController()

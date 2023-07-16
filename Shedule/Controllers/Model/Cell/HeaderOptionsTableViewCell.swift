@@ -6,23 +6,22 @@
 //
 
 import UIKit
-class HeaderOptionSheduleTableViewCell : UITableViewHeaderFooterView {
+class HeaderOptionsTableViewCell : UITableViewHeaderFooterView {
     
     let headerLabel = UILabel(text: "", font: R.Fonts.aveneirNext(with: 14), alignment: .left)
-    let headerNameArray = ["DATA AND TIME","LESSON","TEACHER","COLOR","PERIOD"]
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         headerLabel.textColor = .gray
-        self.contentView.backgroundColor = R.ColorsForBackground.indigo
+        self.contentView.backgroundColor = .none
         setConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func headerConfigure(section: Int) {
-        headerLabel.text = headerNameArray[section]
+    func headerConfigure(nameArray: [String], section: Int) {
+        headerLabel.text = nameArray[section]
     }
     
     func setConstraints() {

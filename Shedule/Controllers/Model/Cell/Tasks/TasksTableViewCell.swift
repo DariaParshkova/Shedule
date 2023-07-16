@@ -5,7 +5,6 @@
 //  Created by Parshkova Daria on 10.07.2023.
 //
 
-import Foundation
 import UIKit
 class TasksTableViewCell : UITableViewCell {
     let taskName = UILabel(text: "Программирование", font: R.Fonts.aveneirNext(with: 20),alignment: .left)

@@ -47,6 +47,7 @@ class TasksViewController : UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: idTasksCell) //регистрируем ячейек
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
     }
     @objc func showHideButtonTapped() {
         if calendar.scope == .week {
@@ -56,6 +57,10 @@ class TasksViewController : UIViewController {
             calendar.setScope(.week, animated: true)
             showHideButton.setTitle(R.Strings.Calendar.openCalendar, for: .normal)
         }
+    }
+    @objc func addButtonTapped() {
+        let taskOption = TaskOptionTableView()
+        navigationController?.pushViewController(taskOption, animated: true)
     }
 }
 //MARK: UITableViewDelegate, UITableViewDataSource
