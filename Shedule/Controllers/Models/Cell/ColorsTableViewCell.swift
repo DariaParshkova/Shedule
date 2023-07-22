@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class ColorTableViewCell : UITableViewCell {
+class ColorsTableViewCell : UITableViewCell {
     
     let backgroundViewCell : UIView = {
         let view = UIView()

@@ -29,7 +29,7 @@ class ContactsTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
     }
     @objc func addButtonTapped() {
-        let contactOption = ContactOptionTableViewController()
+        let contactOption = ContactsOptionsTableViewController()
         navigationController?.pushViewController(contactOption, animated: true)
     }
     

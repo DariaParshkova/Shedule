@@ -31,7 +31,7 @@ enum R {
         static let grey = UIColor(hexString: "#ECEFF1")
         static let blue = UIColor(hexString: "E3F2FD")
         static let greenSwitch = UIColor(hexString: "#66BB6A")
-        static let blueForEmail = UIColor(hexString: "42A5F5")
+        static let blueForEmail = UIColor(hexString: "#42A5F5")
         
     }
     enum ColorsForBackground {

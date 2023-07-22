@@ -1,5 +1,5 @@
 //
-//  PhotoCamera.swift
+//  AlertPhotoCamera.swift
 //  Shedule
 //
 //  Created by Parshkova Daria on 16.07.2023.

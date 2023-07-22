@@ -8,8 +8,8 @@
 import UIKit
 import FSCalendar
 
-class SheduleViewController : UIViewController {
-    var calendarHeightConstraint : NSLayoutConstraint!
+class SheduleViewControllerSheduleViewController : UIViewController {
+    private var calendarHeightConstraint : NSLayoutConstraint!
     
     private var calendar : FSCalendar = {
         let calendar = FSCalendar()
@@ -25,18 +25,19 @@ class SheduleViewController : UIViewController {
         
         return button
     }()
-    let tableView : UITableView = {
+    private let tableView : UITableView = {
         let tableView = UITableView()
         tableView.bounces = false // не будет прокрутки при маленьком колич строк
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    let idSheduleCell = "idSheduleCell"
+    private let idSheduleCell = "idSheduleCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         title = "Shedule"
         calendar.delegate = self
         calendar.dataSource = self
@@ -52,11 +53,11 @@ class SheduleViewController : UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationController?.tabBarController?.tabBar.scrollEdgeAppearance = navigationController?.tabBarController?.tabBar.standardAppearance //таббар для 13 версии xcode
     }
-    @objc func addButtonTapped() {
-        let scheduleOption = OptionsSheduleTableViewController()
+    @objc private func addButtonTapped() {
+        let scheduleOption = SheduleOptionsTableViewController()
         navigationController?.pushViewController(scheduleOption, animated: true)
     }
-    @objc func showHideButtonTapped() {
+    @objc private func showHideButtonTapped() {
         if calendar.scope == .week {
             calendar.setScope(.month, animated: true)
             showHideButton.setTitle(R.Strings.Calendar.closeCalendar, for: .normal)
@@ -68,7 +69,7 @@ class SheduleViewController : UIViewController {
 }
 //MARK: UITableViewDelegate, UITableViewDataSource
 
-extension SheduleViewController : UITableViewDelegate, UITableViewDataSource {
+extension SheduleViewControllerSheduleViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
@@ -84,7 +85,7 @@ extension SheduleViewController : UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: FSCalendarDataSource , FSCalendarDelegate
-extension SheduleViewController : FSCalendarDataSource, FSCalendarDelegate {
+extension SheduleViewControllerSheduleViewController : FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendarHeightConstraint.constant = bounds.height
         view.layoutIfNeeded() //для плавной анимации
@@ -114,7 +115,7 @@ extension SheduleViewController : FSCalendarDataSource, FSCalendarDelegate {
 }
 
 //MARK: SetConstraints
-extension SheduleViewController {
+extension SheduleViewControllerSheduleViewController {
     func setConstraints() {
         view.addSubview(calendar)
         //для открытия календаря при раскрытии его проностью

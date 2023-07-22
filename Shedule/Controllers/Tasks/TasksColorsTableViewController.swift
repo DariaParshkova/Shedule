@@ -1,16 +1,15 @@
 //
-//  SheduleColorViewController.swift
+//  ColorTaskTableViewController.swift
 //  Shedule
 //
-//  Created by Parshkova Daria on 13.07.2023.
+//  Created by Parshkova Daria on 14.07.2023.
 //
-
 import UIKit
 
-class SheduleColorViewController: UITableViewController {
-    
-    let idOptionsColorCell = "idOptionsColorCell"
-    let idOptionsSheduleHeader = "idOptionsSheduleHeader"
+class TasksColorsTableViewController: UITableViewController {
+
+    private let idTaskColorCell = "idTaskColorCell"
+    private let idTaskSheduleHeader = "idTaskSheduleHeader"
     let headerNameArray = ["Pink","Yellow","Green","Purple","Orange", "Grey", "Blue"]
   
     
@@ -21,9 +20,9 @@ class SheduleColorViewController: UITableViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.bounces = false //yбираем функцию оттягивания таблицы
-        tableView.register(ColorTableViewCell.self, forCellReuseIdentifier:idOptionsColorCell)
-        tableView.register(HeaderOptionsTableViewCell.self, forHeaderFooterViewReuseIdentifier: idOptionsSheduleHeader)
-        title = "Color Schedule"
+        tableView.register(ColorsTableViewCell.self, forCellReuseIdentifier: idTaskColorCell)
+        tableView.register(HeaderOptionsTableViewCell.self, forHeaderFooterViewReuseIdentifier:idTaskSheduleHeader )
+        title = "Color Tasks"
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         7
@@ -32,7 +31,7 @@ class SheduleColorViewController: UITableViewController {
        return 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: idOptionsColorCell, for: indexPath) as! ColorTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: idTaskColorCell, for: indexPath) as! ColorsTableViewCell
         cell.cellConfigure(indexPath: indexPath)
         return cell
     }
@@ -41,7 +40,7 @@ class SheduleColorViewController: UITableViewController {
         return 44
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: idOptionsSheduleHeader) as! HeaderOptionsTableViewCell
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: idTaskSheduleHeader) as! HeaderOptionsTableViewCell
         header.headerConfigure(nameArray: headerNameArray, section: section)
         header.backgroundColor = .white
         return header
@@ -55,3 +54,4 @@ class SheduleColorViewController: UITableViewController {
 }
     
    
+

@@ -1,5 +1,5 @@
 //
-//  AlertTime.swift
+//  AlertDate .swift
 //  Shedule
 //
 //  Created by Parshkova Daria on 11.07.2023.
@@ -8,24 +8,26 @@
 import UIKit
 
 extension UIViewController {
-    func alertTime(label: UILabel, completionHandler: @escaping (NSDate) -> Void) {
+    func alertDate(label: UILabel, completionHandler: @escaping (Int, Date) -> Void) {
         let alert = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
         
         let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .time
+        datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
-        datePicker.locale = NSLocale(localeIdentifier: "Ru_ru") as Locale
         
         alert.view.addSubview(datePicker)
         
         let ok = UIAlertAction(title: "OK", style: .default) { action in
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "HH:mm"
-            let timeString = dateFormatter.string(from: datePicker.date)
-            let timeShedule = datePicker.date as NSDate
-            completionHandler(timeShedule)
-            
-            label.text = timeString
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            let dateString = dateFormatter.string(from: datePicker.date)
+            let calendar = Calendar.current
+            let component = calendar.dateComponents([.weekday], from: datePicker.date)
+            guard let weekday = component.weekday else { return }
+            let numberWeekday = weekday
+            let date = datePicker.date 
+            completionHandler(numberWeekday, date)
+            label.text = dateString
             
         }
         let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)

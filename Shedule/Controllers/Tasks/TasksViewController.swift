@@ -31,7 +31,7 @@ class TasksViewController : UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    let idTasksCell = "idTasksCell"
+    private let idTasksCell = "idTasksCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,7 @@ class TasksViewController : UIViewController {
         }
     }
     @objc func addButtonTapped() {
-        let taskOption = TaskOptionTableView()
+        let taskOption = TasksOptionsTableView()
         navigationController?.pushViewController(taskOption, animated: true)
     }
 }

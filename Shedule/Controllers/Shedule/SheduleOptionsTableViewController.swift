@@ -7,19 +7,23 @@
 
 import UIKit
 
-class OptionsSheduleTableViewController: UITableViewController {
+class SheduleOptionsTableViewController: UITableViewController {
 
-    let idOptionsSheduleCell = "idOptionsSheduleCell"
-    let idOptionsSheduleHeader = "idOptionsSheduleHeader"
+    private let idOptionsSheduleCell = "idOptionsSheduleCell"
+    private let idOptionsSheduleHeader = "idOptionsSheduleHeader"
+    
     let headerNameArray = ["DATA AND TIME","LESSON","TEACHER","COLOR","PERIOD"]
     let cellNameArray = [["Date","Time"],
                          ["Name","Type", "Building body", "Audience"],
                          ["Teacher Name"],
                          [""],
                          ["Repeat every 7 days"]]
+    private let sheduleModel = SheduleModel()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        view.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = R.ColorsForBackground.indigo
@@ -28,7 +32,13 @@ class OptionsSheduleTableViewController: UITableViewController {
         tableView.register(OptionsTableViewCell.self, forCellReuseIdentifier:idOptionsSheduleCell)
         tableView.register(HeaderOptionsTableViewCell.self, forHeaderFooterViewReuseIdentifier: idOptionsSheduleHeader)
         title = "Schedule"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
     }
+    @objc private func saveButtonTapped() {
+        RealmManeger.shared.saveSheduleModel(model: sheduleModel)
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         5
     }
@@ -61,20 +71,35 @@ class OptionsSheduleTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! OptionsTableViewCell
         switch indexPath {
-        case [0,0] : alertDate(label: cell.nameCellLabel) { numberWeekday, date in
-            print(numberWeekday, date)
+        case [0,0] :
+            alertDate(label: cell.nameCellLabel) { (numberWeekday, date) in
+            self.sheduleModel.sheduleDate = date //записываем данные в бд
+            self.sheduleModel.sheduleWeekday = numberWeekday
         }
-        case [0,1] : alertTime(label: cell.nameCellLabel) { (date) in
-            print(date)
+        case [0,1] :
+            alertTime(label: cell.nameCellLabel) { (time) in
+            self.sheduleModel.sheduleTime = time
         }
             
-        case [1,0] : alertForCellName(label: cell.nameCellLabel, name: "Name Lesson", placeholder: "Enter name lesson")
-        case [1,1] : alertForCellName(label: cell.nameCellLabel, name: "Type lesson", placeholder: "Enter type lesson")
-        case [1,2] : alertForCellName(label: cell.nameCellLabel, name: "Building number", placeholder: "Enter number of building")
-        case [1,3] : alertForCellName(label: cell.nameCellLabel, name: "Audience number", placeholder: "Enter number of audience")
-        
+        case [1,0] :
+            alertForCellName(label: cell.nameCellLabel, name: "Name Lesson", placeholder: "Enter name lesson") { text in
+                self.sheduleModel.sheduleName = text
+        }
+        case [1,1] :
+            alertForCellName(label: cell.nameCellLabel, name: "Type lesson", placeholder: "Enter type lesson") { text in
+                self.sheduleModel.sheduleType = text
+        }
+        case [1,2] :
+            alertForCellName(label: cell.nameCellLabel, name: "Building number", placeholder: "Enter number of building") { text in
+                self.sheduleModel.sheduleBuilding = text
+        }
+        case [1,3] :
+            alertForCellName(label: cell.nameCellLabel, name: "Audience number", placeholder: "Enter number of audience") { text in
+                self.sheduleModel.sheduleAudience = text
+        }
+    
         case [2,0] : pushControllers(vc: TeachersViewController())
-        case [3,0] : pushControllers(vc: SheduleColorViewController())
+        case [3,0] : pushControllers(vc: SheduleColorsViewController())
          default :
         print("Tap optionsTableView")
     }

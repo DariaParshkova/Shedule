@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ContactOptionTableViewController: UITableViewController {
-    let idOptionsContactCell = "idOptionsContactCell"
-    let idOptionsContactHeader = "idOptionsContactHeader"
+class ContactsOptionsTableViewController: UITableViewController {
+    private let idOptionsContactCell = "idOptionsContactCell"
+    private let idOptionsContactHeader = "idOptionsContactHeader"
     
     let headerNameArray = ["NAME","PHONE","MAIL","TYPE","CHOOSE IMAGE"]
     let cellNameArray = ["Name","Phone","Mail","Type",""]
@@ -51,9 +51,15 @@ class ContactOptionTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! OptionsTableViewCell
         switch indexPath.section {
-        case 0 : alertForCellName(label: cell.nameCellLabel, name: "Name Contact", placeholder: "Enter name contact")
-        case 1 : alertForCellName(label: cell.nameCellLabel, name: "Phone Contact", placeholder: "Enter phone contact")
-        case 2 : alertForCellName(label: cell.nameCellLabel, name: "Mail Contact", placeholder: "Enter mail contact")
+        case 0 : alertForCellName(label: cell.nameCellLabel, name: "Name Contact", placeholder: "Enter name contact") { text in
+            print(text)
+        }
+        case 1 : alertForCellName(label: cell.nameCellLabel, name: "Phone Contact", placeholder: "Enter phone contact") { text in
+            print(text)
+        }
+        case 2 : alertForCellName(label: cell.nameCellLabel, name: "Mail Contact", placeholder: "Enter mail contact") { text in
+            print(text)
+        }
         case 3 : alertFriendOrTecher(label: cell.nameCellLabel) { (type) in
             print(type)
         }
@@ -71,7 +77,7 @@ class ContactOptionTableViewController: UITableViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
-extension ContactOptionTableViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension ContactsOptionsTableViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func chooseImagePicker(source: UIImagePickerController.SourceType) {
         if UIImagePickerController.isSourceTypeAvailable(source) {
             let imagePicker = UIImagePickerController()
