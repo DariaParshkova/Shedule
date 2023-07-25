@@ -17,7 +17,7 @@ class TasksOptionsTableView: UITableViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = R.ColorsForBackground.indigo
+        tableView.backgroundColor = R.Colors.indigoForBackground.uiColor
         tableView.separatorStyle = .none
         tableView.bounces = false //yбираем функцию оттягивания таблицы
         tableView.register(OptionsTableViewCell.self, forCellReuseIdentifier:idOptionsTaskCell)

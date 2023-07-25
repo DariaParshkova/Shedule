@@ -51,7 +51,25 @@ class SheduleColorsViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("TapCell")
+        switch indexPath.section {
+        case 0: setColor(color: R.Colors.pink.hexValue)
+        case 1: setColor(color: R.Colors.yellow.hexValue)
+        case 2: setColor(color: R.Colors.green.hexValue)
+        case 3: setColor(color: R.Colors.purple.hexValue)
+        case 4: setColor(color: R.Colors.orange.hexValue)
+        case 5: setColor(color: R.Colors.grey.hexValue)
+        case 6: setColor(color: R.Colors.blue.hexValue)
+        default :
+            setColor(color: R.Colors.yellow.hexValue)
+        }
     }
+    private func setColor(color: String) {
+        let sheduleOptions = self.navigationController?.viewControllers[1] as! SheduleOptionsTableViewController
+        sheduleOptions.hexColorCell = color
+        sheduleOptions.tableView.reloadRows(at: [[3,0]], with: .none)
+        self.navigationController?.popViewController(animated: true)
+    }
+
 }
     
-   
+

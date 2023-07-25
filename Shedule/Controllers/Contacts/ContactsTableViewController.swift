@@ -21,7 +21,7 @@ class ContactsTableViewController: UITableViewController {
         navigationItem.searchController = searchController
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = R.ColorsForBackground.indigo
+        tableView.backgroundColor = R.Colors.indigoForBackground.uiColor
         tableView.separatorStyle = .singleLine
         //tableView.bounces = false //yбираем функцию оттягивания таблицы
         tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier:idContactsCell)

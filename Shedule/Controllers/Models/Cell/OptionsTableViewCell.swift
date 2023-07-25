@@ -7,13 +7,13 @@
 import UIKit
 class OptionsTableViewCell : UITableViewCell {
     
-    let backgroundViewCell : UIImageView = {
+    var backgroundViewCell : UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
         imageView.layer.cornerRadius = 10
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = R.Colors.blueForEmail
+        imageView.tintColor = R.Colors.blue.uiColor?.withAlphaComponent(1.0)
         return imageView
     }()
     
@@ -28,7 +28,7 @@ class OptionsTableViewCell : UITableViewCell {
         let repeatSwitch = UISwitch()
         repeatSwitch.isOn = true
         repeatSwitch.isHidden = true
-        repeatSwitch.onTintColor = R.Colors.greenSwitch
+        repeatSwitch.onTintColor = R.Colors.greenSwitch.uiColor
         repeatSwitch.translatesAutoresizingMaskIntoConstraints = false
         return repeatSwitch
     }()
@@ -41,20 +41,15 @@ class OptionsTableViewCell : UITableViewCell {
         repeatSwitch.addTarget(self, action: #selector(switchChange(paramTarget:)), for: .valueChanged)
     }
     //настройки конкертных ячеек
-    func cellSheduleConfigure(nameArray:[[String]], indexPath: IndexPath) {
+    func cellSheduleConfigure(nameArray:[[String]], indexPath: IndexPath, hexColor: String) {
         nameCellLabel.text = nameArray[indexPath.section][indexPath.row] //по каждой секции нашего массива cellNameArray разбиваем по ячейкам
-        if indexPath == [3,0] {
-            backgroundViewCell.backgroundColor = R.Colors.yellow
-        }
-        if indexPath == [4,0] {
-            repeatSwitch.isHidden = false
-        }
+        repeatSwitch.isHidden = (indexPath.section == 4 ? false : true)
+        let color = UIColor(hexString: hexColor)
+        backgroundViewCell.backgroundColor = (indexPath.section == 3 ? color : .white)
     }
     func cellTasksConfigure(nameArray:[String], indexPath: IndexPath) {
         nameCellLabel.text = nameArray[indexPath.section]
-        if indexPath == [3,0] {
-            backgroundViewCell.backgroundColor = R.Colors.yellow
-        }
+        backgroundViewCell.backgroundColor = (indexPath.section == 3 ? R.Colors.yellow.uiColor : .white)
     }
     func cellContactConfigure(nameArray:[String], indexPath: IndexPath) {
         nameCellLabel.text = nameArray[indexPath.section]

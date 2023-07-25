@@ -7,39 +7,45 @@
 
 import Foundation
 import UIKit
+
 extension UIColor {
-    convenience init(hexString: String)  {
-        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int = UInt64()
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
+    // Создание UIColor из строки с HEX значением (например, "#RRGGBB" или "RRGGBB")
+    convenience init?(hexString: String) {
+        var formattedString = hexString.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Проверяем и удаляем "#" из строки, если присутствует
+        if formattedString.hasPrefix("#") {
+            formattedString.remove(at: formattedString.startIndex)
         }
-        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+        
+        // Проверяем, что длина строки корректна
+        guard formattedString.count == 6 else {
+            return nil
+        }
+        
+        // Парсим значения RGB из строки
+        var rgbValue: UInt64 = 0
+        Scanner(string: formattedString).scanHexInt64(&rgbValue)
+        
+        // Создаем UIColor из RGB значения
+        let red = CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
+        
+        self.init(red: red, green: green, blue: blue, alpha: 1.0)
     }
-    /*func colorFromHex(hexString: String) -> UIColor {
-        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int = UInt64()
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
+    
+    func toHexString() -> String? {
+        guard let components = self.cgColor.components, components.count >= 3 else {
+            return nil
         }
-        return UIColor.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
-    }*/
+        
+        let r = Float(components[0])
+        let g = Float(components[1])
+        let b = Float(components[2])
+        
+        let hexString = String(format: "#%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+        return hexString
+    }
 }
+

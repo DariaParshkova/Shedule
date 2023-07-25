@@ -14,7 +14,7 @@ class SheduleModel: Object {
     @Persisted var sheduleBuilding : String = ""
     @Persisted var sheduleAudience : String = ""
     @Persisted var sheduleTeacher : String = ""
-    @Persisted var sheduleColor: String = ""
+    @Persisted var sheduleColor: String = R.Colors.yellow.hexValue
     @Persisted var sheduleRepeat : Bool = true
     @Persisted var sheduleWeekday : Int = 1
     

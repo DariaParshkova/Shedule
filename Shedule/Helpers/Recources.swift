@@ -22,6 +22,32 @@ enum R {
             UIFont(name: "Avenir Next", size: size) ?? UIFont()
         }
     }
+    enum Colors: String {
+        case pink = "#FCE4EC"
+        case yellow = "#FFFFD5"
+        case green = "#E8F5E9"
+        case purple = "#EDE7F6"
+        case orange = "#FBE9E7"
+        case grey = "#ECEFF1"
+        case blue = "E3F2FD"
+        
+        
+        case greenSwitch = "#66BB6A"
+        case blueForEmail = "#42A5F5"
+        case indigoForBackground =  "#E8EAF6"
+        case white = "#FFFFFF"
+        
+        var hexValue: String {
+               return self.rawValue
+           }
+
+           var uiColor: UIColor? {
+               return UIColor(hexString: self.rawValue)
+           }
+    }
+    
+    
+    /*
     enum Colors {
         static let pink = UIColor(hexString: "#FCE4EC")
         static let yellow = UIColor(hexString: "#FFFFD5")
@@ -37,5 +63,5 @@ enum R {
     enum ColorsForBackground {
         static let indigo = UIColor(hexString: "#E8EAF6")
     }
-    
+    */
 }

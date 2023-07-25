@@ -18,14 +18,14 @@ class ContactsTableViewCell : UITableViewCell  {
     let phoneImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "phone.fill")?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = R.Colors.greenSwitch
+        imageView.tintColor = R.Colors.greenSwitch.uiColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     let mailImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "envelope.fill")?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = R.Colors.blueForEmail
+        imageView.tintColor = R.Colors.blueForEmail.uiColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

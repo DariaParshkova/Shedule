@@ -21,13 +21,13 @@ class SheduleOptionsTableViewController: UITableViewController {
     
     private var sheduleModel = SheduleModel()
     
+    var hexColorCell = R.Colors.yellow.hexValue
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        view.backgroundColor = .white
+        //view.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = R.ColorsForBackground.indigo
         tableView.separatorStyle = .none
         tableView.bounces = false //yбираем функцию оттягивания таблицы
         tableView.register(OptionsTableViewCell.self, forCellReuseIdentifier:idOptionsSheduleCell)
@@ -36,11 +36,21 @@ class SheduleOptionsTableViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.backgroundColor = R.Colors.indigoForBackground.uiColor
+        //view.backgroundColor = UIColor(hexString: "#E8EAF6")
+        // Установите другие цвета и настройки элементов интерфейса перед отображением
+    }
+    
     @objc private func saveButtonTapped() {
+        sheduleModel.sheduleColor = hexColorCell
         RealmManeger.shared.saveSheduleModel(model: sheduleModel)
         sheduleModel = SheduleModel() // обновление модели после сохранения фиксим баг
-        alertOk(title: "Success")
-        tableView.reloadRows(at: [[0,0],[0,1],[1,0],[1,1],[1,2],[1,3],[2,0]], with: .none) //обновление ячеек при сохранении
+        alertOk(title: "Success") //изменение цвета на прежний после сохранения
+        hexColorCell = R.Colors.yellow.hexValue
+       // tableView.reloadRows(at: [[0,0],[0,1],[1,0],[1,1],[1,2],[1,3],[2,0]], with: .none) //обновление ячеек при сохранении
+        tableView.reloadData() // обновляет ячейки при сохранении
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,12 +65,26 @@ class SheduleOptionsTableViewController: UITableViewController {
         default : return 1
         }
     }
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idOptionsSheduleCell, for: indexPath) as! OptionsTableViewCell
         cell.cellSheduleConfigure(nameArray: cellNameArray, indexPath: indexPath)
+        if let color = UIColor(hexString: hexColorCell) {
+                cell.backgroundViewCell = (indexPath.section == 3 ? color : .white)
+            } else {
+                cell.backgroundViewCell = .white // Задайте цвет по умолчанию, если не удалось получить цвет из строки
+            }
+            
         return cell
     }
-    
+    */
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: idOptionsSheduleCell, for: indexPath) as! OptionsTableViewCell
+        cell.cellSheduleConfigure(nameArray: cellNameArray, indexPath: indexPath, hexColor: hexColorCell)
+        // Получение UIColor из строки с HEX значением цвета
+        return cell
+    }
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
