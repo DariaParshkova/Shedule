@@ -13,7 +13,7 @@ extension UIViewController {
         let ok = UIAlertAction(title: "OK", style: .default) { (action) in
             let textFieldAlert = alert.textFields?.first
             guard let text = textFieldAlert?.text else {return}
-            label.text = text
+            label.text = (text != "" ? text : label.text)
             completionHandler(text)
             
         }

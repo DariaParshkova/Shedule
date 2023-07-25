@@ -18,7 +18,8 @@ class SheduleOptionsTableViewController: UITableViewController {
                          ["Teacher Name"],
                          [""],
                          ["Repeat every 7 days"]]
-    private let sheduleModel = SheduleModel()
+    
+    private var sheduleModel = SheduleModel()
     
     override func viewDidLoad() {
         
@@ -37,6 +38,9 @@ class SheduleOptionsTableViewController: UITableViewController {
     }
     @objc private func saveButtonTapped() {
         RealmManeger.shared.saveSheduleModel(model: sheduleModel)
+        sheduleModel = SheduleModel() // обновление модели после сохранения фиксим баг
+        alertOk(title: "Success")
+        tableView.reloadRows(at: [[0,0],[0,1],[1,0],[1,1],[1,2],[1,3],[2,0]], with: .none) //обновление ячеек при сохранении
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -15,7 +15,7 @@ class RealmManeger {
     func saveSheduleModel(model: SheduleModel) {
         try! localRealm.write {
             localRealm.add(model)
-            print(Realm.Configuration.defaultConfiguration.fileURL)
+            print(Realm.Configuration.defaultConfiguration.fileURL )
         }
     }
     
