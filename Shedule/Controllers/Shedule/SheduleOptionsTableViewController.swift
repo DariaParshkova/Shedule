@@ -44,13 +44,16 @@ class SheduleOptionsTableViewController: UITableViewController {
     }
     
     @objc private func saveButtonTapped() {
-        sheduleModel.sheduleColor = hexColorCell
-        RealmManeger.shared.saveSheduleModel(model: sheduleModel)
-        sheduleModel = SheduleModel() // обновление модели после сохранения фиксим баг
-        alertOk(title: "Success") //изменение цвета на прежний после сохранения
-        hexColorCell = R.Colors.yellow.hexValue
-       // tableView.reloadRows(at: [[0,0],[0,1],[1,0],[1,1],[1,2],[1,3],[2,0]], with: .none) //обновление ячеек при сохранении
-        tableView.reloadData() // обновляет ячейки при сохранении
+        if sheduleModel.sheduleDate == nil || sheduleModel.sheduleTime == nil  || sheduleModel.sheduleName == "Unknown" {
+            alertOk(title: "Error", message: "fill in the fields : Date, Time, Name")
+        } else {
+            sheduleModel.sheduleColor = hexColorCell
+            RealmManeger.shared.saveSheduleModel(model: sheduleModel)
+            sheduleModel = SheduleModel() // обновление модели после сохранения фиксим баг
+            alertOk(title: "Success", message: nil) //изменение цвета на прежний после сохранения
+            hexColorCell = R.Colors.yellow.hexValue
+            tableView.reloadData() // обновляет ячейки при сохранении
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -39,6 +39,11 @@ class SheduleViewControllerSheduleViewController : UIViewController {
     
     private let idSheduleCell = "idSheduleCell"
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    } //перезагрузка таблицы при каждом переходе на экран
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -89,8 +94,14 @@ extension SheduleViewControllerSheduleViewController : UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
-    
-    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editingRow = sheduleArray[indexPath.row]
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
+            RealmManeger.shared.deleteSheduleModel(model: editingRow)
+            tableView.reloadData() //чтобы ячейка исчезала сразу с экрана
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 //MARK: FSCalendarDataSource , FSCalendarDelegate

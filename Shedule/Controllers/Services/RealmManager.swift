@@ -18,5 +18,10 @@ class RealmManeger {
             print(Realm.Configuration.defaultConfiguration.fileURL )
         }
     }
+    func deleteSheduleModel(model: SheduleModel) {
+        try! localRealm.write {
+            localRealm.delete(model)
+        }
+    }
     
 }
