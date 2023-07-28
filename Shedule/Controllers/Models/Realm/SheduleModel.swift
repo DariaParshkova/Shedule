@@ -9,11 +9,11 @@ import RealmSwift
 class SheduleModel: Object {
     @Persisted var sheduleDate = Date()
     @Persisted var sheduleTime = Date()
-    @Persisted var sheduleName : String = ""
-    @Persisted var sheduleType : String = ""
-    @Persisted var sheduleBuilding : String = ""
-    @Persisted var sheduleAudience : String = ""
-    @Persisted var sheduleTeacher : String = ""
+    @Persisted var sheduleName : String = "Unknown"
+    @Persisted var sheduleType : String = "Unknown"
+    @Persisted var sheduleBuilding : String = "Unknown"
+    @Persisted var sheduleAudience : String = "Unknown"
+    @Persisted var sheduleTeacher : String = "Unknown"
     @Persisted var sheduleColor: String = R.Colors.yellow.hexValue
     @Persisted var sheduleRepeat : Bool = true
     @Persisted var sheduleWeekday : Int = 1

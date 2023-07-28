@@ -7,6 +7,8 @@
 
 import UIKit
 import FSCalendar
+import RealmSwift
+
 
 class SheduleViewControllerSheduleViewController : UIViewController {
     private var calendarHeightConstraint : NSLayoutConstraint!
@@ -32,6 +34,9 @@ class SheduleViewControllerSheduleViewController : UIViewController {
         return tableView
     }()
     
+    let localRealm = try! Realm()
+    var sheduleArray : Results<SheduleModel>!   //здесь сохраняем все значения базы данных
+    
     private let idSheduleCell = "idSheduleCell"
     
     override func viewDidLoad() {
@@ -39,12 +44,14 @@ class SheduleViewControllerSheduleViewController : UIViewController {
         view.backgroundColor = .white
         
         title = "Shedule"
+        //sheduleArray = localRealm.objects(SheduleModel.self)  //при загрузке экрана сразу получаем данные из бд
         calendar.delegate = self
         calendar.dataSource = self
         calendar.scope = .week
         setConstraints()
         showHideButton.addTarget(self, action: #selector(showHideButtonTapped), for: .touchUpInside)
         swipeAction()
+        sheduleOnDay(date: Date())
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -71,10 +78,12 @@ class SheduleViewControllerSheduleViewController : UIViewController {
 
 extension SheduleViewControllerSheduleViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return sheduleArray.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idSheduleCell, for: indexPath) as! SheduleTableViewCell
+        let model = sheduleArray[indexPath.row]
+        cell.configure(model: model)
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -91,7 +100,8 @@ extension SheduleViewControllerSheduleViewController : FSCalendarDataSource, FSC
         view.layoutIfNeeded() //для плавной анимации
     }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print(date)
+        sheduleOnDay(date: date)
+        
     }
     //MARK: SwipeGestureRecognizer
     func swipeAction() {
@@ -110,6 +120,24 @@ extension SheduleViewControllerSheduleViewController : FSCalendarDataSource, FSC
         case .down : showHideButtonTapped()
         default : break
         }
+    }
+    private func sheduleOnDay(date: Date) {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.weekday], from: date) //берем значения из даты
+        guard let weekday = components.weekday else { return }
+        print(weekday)
+        let dateStart = date
+        let dateEnd : Date = {
+            let components = DateComponents(day:1 , second: -1)
+            return Calendar.current.date(byAdding: components, to: dateStart)! //! можно использовать так как дата есть всегда
+        }()
+        //пишем условие при выполнении которого будем получать необходимые данные
+        let predicateRepeat = NSPredicate(format: "sheduleWeekday = \(weekday) AND sheduleRepeat = true")
+        let predicateUnrepeat = NSPredicate(format: "sheduleRepeat = false AND sheduleDate BETWEEN %@", [dateStart, dateEnd])
+        let compound = NSCompoundPredicate(type: .or, subpredicates: [predicateRepeat, predicateUnrepeat])
+        
+        sheduleArray = localRealm.objects(SheduleModel.self).filter(compound).sorted(byKeyPath: "sheduleTime")
+        tableView.reloadData()
     }
     
 }

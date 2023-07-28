@@ -65,23 +65,11 @@ class SheduleOptionsTableViewController: UITableViewController {
         default : return 1
         }
     }
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: idOptionsSheduleCell, for: indexPath) as! OptionsTableViewCell
-        cell.cellSheduleConfigure(nameArray: cellNameArray, indexPath: indexPath)
-        if let color = UIColor(hexString: hexColorCell) {
-                cell.backgroundViewCell = (indexPath.section == 3 ? color : .white)
-            } else {
-                cell.backgroundViewCell = .white // Задайте цвет по умолчанию, если не удалось получить цвет из строки
-            }
-            
-        return cell
-    }
-    */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idOptionsSheduleCell, for: indexPath) as! OptionsTableViewCell
         cell.cellSheduleConfigure(nameArray: cellNameArray, indexPath: indexPath, hexColor: hexColorCell)
         // Получение UIColor из строки с HEX значением цвета
+        cell.switchRepeatDelegate = self
         return cell
     }
 
@@ -140,3 +128,10 @@ class SheduleOptionsTableViewController: UITableViewController {
 }
     
    
+extension SheduleOptionsTableViewController : SwitchRepeatProtocol {
+    func switchRepeat(value: Bool) {
+        sheduleModel.sheduleRepeat = value
+    }
+    
+    
+}
