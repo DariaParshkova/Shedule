@@ -97,7 +97,7 @@ extension SheduleViewControllerSheduleViewController : UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editingRow = sheduleArray[indexPath.row]
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
-            RealmManeger.shared.deleteSheduleModel(model: editingRow)
+            RealmManager.shared.deleteSheduleModel(model: editingRow)
             tableView.reloadData() //чтобы ячейка исчезала сразу с экрана
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])

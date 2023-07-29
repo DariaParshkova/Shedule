@@ -7,6 +7,7 @@
 
 import UIKit
 import FSCalendar
+import RealmSwift
 
 class TasksViewController : UIViewController {
     
@@ -31,24 +32,38 @@ class TasksViewController : UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
     private let idTasksCell = "idTasksCell"
+    
+    private let localRealm = try! Realm()
+    private var taskArray: Results<TaskModel>! //обращаемся к этой модели и хотим записать их в taskArray
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData() //перезагрузка страницы при создании задачи
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Shedule"
+        title = "Tasks"
+        
         calendar.delegate = self
         calendar.dataSource = self
         calendar.scope = .week
+        
         setConstraints()
-        showHideButton.addTarget(self, action: #selector(showHideButtonTapped), for: .touchUpInside)
         swipeAction()
+        setTaskOnDay(date: calendar.today!)
+        
+        showHideButton.addTarget(self, action: #selector(showHideButtonTapped), for: .touchUpInside)
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: idTasksCell) //регистрируем ячейек
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
     }
+    
     @objc func showHideButtonTapped() {
         if calendar.scope == .week {
             calendar.setScope(.month, animated: true)
@@ -59,30 +74,47 @@ class TasksViewController : UIViewController {
         }
     }
     @objc func addButtonTapped() {
-        let taskOption = TasksOptionsTableView()
+        let taskOption = TasksOptionsTableViewController()
         navigationController?.pushViewController(taskOption, animated: true)
     }
+    
 }
 //MARK: UITableViewDelegate, UITableViewDataSource
 
 extension TasksViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        taskArray.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idTasksCell, for: indexPath) as! TasksTableViewCell
         cell.cellTaskDelegate = self
         cell.index = indexPath
+        let model = taskArray[indexPath.row]
+        cell.configure(model: model)
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editingRow = taskArray[indexPath.row]
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _,_, completionHandler in
+            RealmManager.shared.deleteTaskModel(model: editingRow)
+            tableView.reloadData()
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+        
+    }
+    
+    
+    
 }
 //MARK: PressReadyTaskButtonProtocol
 extension TasksViewController : PressReadyTaskButtonProtocol {
     func readyButtonTapped(indexPath: IndexPath) {
-        print("TAP")
+        let task = taskArray[indexPath.row] //создаю экземпляр модели и выбираю ее по indexPath
+        RealmManager.shared.updateReadyButtonTaskModel(task: task, bool: !task.taskReady) //вместе с нажатием на кнопку меняется и значение в модели bool
+        tableView.reloadData()
     }
 }
 
@@ -95,6 +127,16 @@ extension TasksViewController : FSCalendarDataSource, FSCalendarDelegate {
     }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print(date)
+    }
+    private func setTaskOnDay(date: Date) {
+        let dateStart = date
+        let dateEnd: Date = {
+            let components = DateComponents(day: 1, second: -1)
+            return Calendar.current.date(byAdding: components, to: dateStart)!
+        }()
+        taskArray = localRealm.objects(TaskModel.self).filter("taskDate BETWEEN %@", [dateStart, dateEnd])
+        tableView.reloadData() //обновление таблицы при выборе числа в календаре 
+        
     }
     //MARK: SwipeGestureRecognizer
     func swipeAction() {

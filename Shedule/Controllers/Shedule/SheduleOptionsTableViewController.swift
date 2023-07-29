@@ -48,10 +48,10 @@ class SheduleOptionsTableViewController: UITableViewController {
             alertOk(title: "Error", message: "fill in the fields : Date, Time, Name")
         } else {
             sheduleModel.sheduleColor = hexColorCell
-            RealmManeger.shared.saveSheduleModel(model: sheduleModel)
+            RealmManager.shared.saveSheduleModel(model: sheduleModel)
             sheduleModel = SheduleModel() // обновление модели после сохранения фиксим баг
-            alertOk(title: "Success", message: nil) //изменение цвета на прежний после сохранения
-            hexColorCell = R.Colors.yellow.hexValue
+            alertOk(title: "Success", message: nil) 
+            hexColorCell = R.Colors.yellow.hexValue //изменение цвета на прежний после сохранения
             tableView.reloadData() // обновляет ячейки при сохранении
         }
     }
@@ -71,7 +71,6 @@ class SheduleOptionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idOptionsSheduleCell, for: indexPath) as! OptionsTableViewCell
         cell.cellSheduleConfigure(nameArray: cellNameArray, indexPath: indexPath, hexColor: hexColorCell)
-        // Получение UIColor из строки с HEX значением цвета
         cell.switchRepeatDelegate = self
         return cell
     }

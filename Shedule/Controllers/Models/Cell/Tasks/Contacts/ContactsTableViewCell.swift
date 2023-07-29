@@ -9,7 +9,8 @@ import UIKit
 class ContactsTableViewCell : UITableViewCell  {
     let contactImageView : UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "contact")
+        imageView.image = UIImage(named: "person.fill")?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = R.Colors.blueForEmail.uiColor
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +47,16 @@ class ContactsTableViewCell : UITableViewCell  {
         setConstraints()
         
     }
+    func configure(model: ContactModel) {
+        nameLabel.text = model.contactsName
+        phoneLabel.text = model.contactsPhone
+        mailLabel.text = model.contactsMail
+        
+        guard let data = model.contactsImage, let image = UIImage(data: data) else { return } //если есть какие-то данные то менем изображение
+        contactImageView.image = image
+       
+    }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

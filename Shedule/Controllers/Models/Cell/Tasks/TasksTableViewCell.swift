@@ -13,7 +13,7 @@ class TasksTableViewCell : UITableViewCell {
     let readyButton : UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "chevron.down.circle"), for: .normal)
-        button.tintColor = .blue
+        button.tintColor = R.Colors.blueForEmail.uiColor
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -40,6 +40,16 @@ class TasksTableViewCell : UITableViewCell {
         guard let index = index else { return }
         cellTaskDelegate?.readyButtonTapped(indexPath: index)
     }
+    func configure(model: TaskModel) {
+        taskName.text = model.taskName
+        taskDescription.text = model.taskDescriptionName
+        backgroundColor = UIColor(hexString: model.taskColor)
+        
+        let image = model.taskReady ? UIImage(systemName: "flag.slash") : UIImage(systemName: "flag.fill")
+        readyButton.setBackgroundImage(image, for: .normal)
+    }
+    
+    
     
     
     func setConstraints() {

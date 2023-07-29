@@ -29,7 +29,7 @@ class ColorsTableViewCell : UITableViewCell {
         case 0 : backgroundViewCell.backgroundColor = R.Colors.pink.uiColor
         case 1 : backgroundViewCell.backgroundColor = R.Colors.yellow.uiColor
         case 2 : backgroundViewCell.backgroundColor = R.Colors.green.uiColor
-        case 3 : backgroundViewCell.backgroundColor = R.Colors.purple.uiColor
+        case 3 : backgroundViewCell.backgroundColor = R.Colors.cyan.uiColor
         case 4 : backgroundViewCell.backgroundColor = R.Colors.orange.uiColor
         case 5 : backgroundViewCell.backgroundColor = R.Colors.grey.uiColor
         case 6 : backgroundViewCell.backgroundColor = R.Colors.blue.uiColor

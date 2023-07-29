@@ -11,7 +11,7 @@ class SheduleColorsViewController: UITableViewController {
     
     private let idOptionsColorCell = "idOptionsColorCell"
     private let idOptionsSheduleHeader = "idOptionsSheduleHeader"
-    let headerNameArray = ["Pink","Yellow","Green","Purple","Orange", "Grey", "Blue"]
+    let headerNameArray = ["Pink","Yellow","Green","Cyan","Orange", "Grey", "Blue"]
   
     
     override func viewDidLoad() {
@@ -50,12 +50,11 @@ class SheduleColorsViewController: UITableViewController {
         return 30
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("TapCell")
         switch indexPath.section {
         case 0: setColor(color: R.Colors.pink.hexValue)
         case 1: setColor(color: R.Colors.yellow.hexValue)
         case 2: setColor(color: R.Colors.green.hexValue)
-        case 3: setColor(color: R.Colors.purple.hexValue)
+        case 3: setColor(color: R.Colors.cyan.hexValue)
         case 4: setColor(color: R.Colors.orange.hexValue)
         case 5: setColor(color: R.Colors.grey.hexValue)
         case 6: setColor(color: R.Colors.blue.hexValue)
