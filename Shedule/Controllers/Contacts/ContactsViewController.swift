@@ -79,6 +79,21 @@ class ContactsViewController: UIViewController {
         let contactOption = ContactsOptionsTableViewController()
         navigationController?.pushViewController(contactOption, animated: true)
     }
+    //для измненения данных уже в созданной ячейке (1)
+    @objc func editingModel(contactModel: ContactModel) {
+        let contactOption = ContactsOptionsTableViewController()
+        contactOption.contactModel = contactModel
+        contactOption.editModel = true
+        contactOption.cellNameArray = [
+            contactModel.contactsName,
+            contactModel.contactsPhone,
+            contactModel.contactsMail,
+            contactModel.contactsType,
+            ""
+        ]
+        contactOption.imageIsChanged = true
+        navigationController?.pushViewController(contactOption, animated: true)
+    }
      
 }
 //MARK: UITableViewDelegate, UITableViewDataSource
@@ -97,7 +112,9 @@ extension ContactsViewController : UITableViewDelegate, UITableViewDataSource {
        return 80
    }
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       print("tapcell")
+       //для изменения существующей ячейки (2)
+       let model = contactsArray[indexPath.row]
+       editingModel(contactModel: model)
    }
    
    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

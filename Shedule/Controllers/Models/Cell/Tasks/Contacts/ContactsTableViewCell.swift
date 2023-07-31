@@ -49,13 +49,15 @@ class ContactsTableViewCell : UITableViewCell  {
         
     }
     func configure(model: ContactModel) {
-        nameLabel.text = model.contactsName
+        nameLabel.text = model.contactsName  
         phoneLabel.text = model.contactsPhone
         mailLabel.text = model.contactsMail
         
-        guard let data = model.contactsImage, let image = UIImage(data: data) else { return } //если есть какие-то данные то менем изображение
-        contactImageView.image = image
-       
+        if let data = model.contactsImage, let image = UIImage(data: data) {
+            contactImageView.image = image
+        } else {
+            contactImageView.image = UIImage(systemName: "person.fill")
+        }
     }
     
     

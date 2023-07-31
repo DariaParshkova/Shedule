@@ -13,13 +13,13 @@ class SheduleOptionsTableViewController: UITableViewController {
     private let idOptionsSheduleHeader = "idOptionsSheduleHeader"
     
     let headerNameArray = ["DATA AND TIME","LESSON","TEACHER","COLOR","PERIOD"]
-    let cellNameArray = [["Date","Time"],
+    var cellNameArray = [["Date","Time"],
                          ["Name","Type", "Building body", "Audience"],
                          ["Teacher Name"],
                          [""],
                          ["Repeat every 7 days"]]
     
-    private var sheduleModel = SheduleModel()
+    var sheduleModel = SheduleModel()
     
     var hexColorCell = R.Colors.yellow.hexValue
     
@@ -52,6 +52,7 @@ class SheduleOptionsTableViewController: UITableViewController {
             sheduleModel = SheduleModel() // обновление модели после сохранения фиксим баг
             alertOk(title: "Success", message: nil) 
             hexColorCell = R.Colors.yellow.hexValue //изменение цвета на прежний после сохранения
+            cellNameArray[2][0] = "Teacher Name"
             tableView.reloadData() // обновляет ячейки при сохранении
         }
     }

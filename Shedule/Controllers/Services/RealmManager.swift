@@ -51,5 +51,15 @@ class RealmManager {
             localRealm.delete(model)
         }
     }
+    //for editing
+    func updateContactModel(model: ContactModel, nameArray: [String], imageData: Data?) {
+        try! localRealm.write {
+            model.contactsName = nameArray[0]
+            model.contactsPhone = nameArray[1]
+            model.contactsMail = nameArray[2]
+            model.contactsType = nameArray[3]
+            model.contactsImage = imageData
+        }
+    }
     
 }
