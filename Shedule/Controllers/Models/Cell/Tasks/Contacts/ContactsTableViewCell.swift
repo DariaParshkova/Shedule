@@ -27,6 +27,7 @@ class ContactsTableViewCell : UITableViewCell  {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "envelope.fill")?.withRenderingMode(.alwaysTemplate)
         imageView.tintColor = R.Colors.blueForEmail.uiColor
+        //imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

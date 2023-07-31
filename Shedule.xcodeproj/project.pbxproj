@@ -13,7 +13,7 @@
 		653FDE9B2A602C1B0058DAEB /* SheduleColorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653FDE9A2A602C1B0058DAEB /* SheduleColorsViewController.swift */; };
 		653FDE9D2A602C3F0058DAEB /* TeachersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653FDE9C2A602C3F0058DAEB /* TeachersViewController.swift */; };
 		653FDE9F2A60392B0058DAEB /* ColorsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653FDE9E2A60392B0058DAEB /* ColorsTableViewCell.swift */; };
-		65406EB12A62C7C500B10227 /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65406EB02A62C7C500B10227 /* ContactsTableViewController.swift */; };
+		65406EB12A62C7C500B10227 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65406EB02A62C7C500B10227 /* ContactsViewController.swift */; };
 		65406EB32A62C97D00B10227 /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65406EB22A62C97D00B10227 /* ContactsTableViewCell.swift */; };
 		65406EB52A62EDCC00B10227 /* ContactsOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65406EB42A62EDCC00B10227 /* ContactsOptionsTableViewController.swift */; };
 		65406EB72A6433C700B10227 /* AlertFriendsOrTeachers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65406EB62A6433C700B10227 /* AlertFriendsOrTeachers.swift */; };
@@ -53,7 +53,7 @@
 		653FDE9A2A602C1B0058DAEB /* SheduleColorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleColorsViewController.swift; sourceTree = "<group>"; };
 		653FDE9C2A602C3F0058DAEB /* TeachersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewController.swift; sourceTree = "<group>"; };
 		653FDE9E2A60392B0058DAEB /* ColorsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsTableViewCell.swift; sourceTree = "<group>"; };
-		65406EB02A62C7C500B10227 /* ContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
+		65406EB02A62C7C500B10227 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		65406EB22A62C97D00B10227 /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		65406EB42A62EDCC00B10227 /* ContactsOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsOptionsTableViewController.swift; sourceTree = "<group>"; };
 		65406EB62A6433C700B10227 /* AlertFriendsOrTeachers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFriendsOrTeachers.swift; sourceTree = "<group>"; };
@@ -189,7 +189,7 @@
 		65771E432A5C99F700DCD81D /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				65406EB02A62C7C500B10227 /* ContactsTableViewController.swift */,
+				65406EB02A62C7C500B10227 /* ContactsViewController.swift */,
 				65406EB42A62EDCC00B10227 /* ContactsOptionsTableViewController.swift */,
 				653FDE9C2A602C3F0058DAEB /* TeachersViewController.swift */,
 			);
@@ -467,7 +467,7 @@
 				65771E402A5C99A700DCD81D /* SheduleOptionsTableViewController.swift in Sources */,
 				65A9E1462A5843F900287C02 /* SheduleViewController.swift in Sources */,
 				65406EB92A644FAC00B10227 /* AlertPhotoCamera.swift in Sources */,
-				65406EB12A62C7C500B10227 /* ContactsTableViewController.swift in Sources */,
+				65406EB12A62C7C500B10227 /* ContactsViewController.swift in Sources */,
 				65ACE25A2A5ACB7F00FA63AE /* Recources.swift in Sources */,
 				65ACE2582A5AC73F00FA63AE /* SheduleTableViewCell.swift in Sources */,
 				65D37B252A5C667E00B80A53 /* extUIcolor.swift in Sources */,
