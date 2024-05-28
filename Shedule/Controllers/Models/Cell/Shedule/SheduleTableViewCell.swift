@@ -2,7 +2,7 @@
 //  SheduleTableViewCell.swift
 //  Shedule
 //
-//  Created by Parshkova Daria on 09.07.2023.
+//  Created by Parshkova Daria on 09.07.2021.
 //
 
 import UIKit

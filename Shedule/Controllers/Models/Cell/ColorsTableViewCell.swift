@@ -2,7 +2,7 @@
 //  ColorSheduleTableViewCell.swift
 //  Shedule
 //
-//  Created by Parshkova Daria on 13.07.2023.
+//  Created by Parshkova Daria on 13.07.2021.
 //
 
 import UIKit

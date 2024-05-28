@@ -2,7 +2,7 @@
 //  AlertTime.swift
 //  Shedule
 //
-//  Created by Parshkova Daria on 11.07.2023.
+//  Created by Parshkova Daria on 11.07.2021.
 //
 
 import UIKit
